@@ -24,6 +24,8 @@ The network is learned using Adam, a flavour of the SGD algorithm. At each itera
 
 The code uses TensorFlow 2.7
 
+The architecture is illustrated in ![](SVD-SIREN-pipeline.png)
+
 ## How to use
 
 Requirements: Python 3.7, TensorFlow 2.7
