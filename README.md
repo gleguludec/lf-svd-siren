@@ -22,7 +22,11 @@ The algorithm is therefore composed of two parts:
 
 The network is learned using Adam, a flavour of the SGD algorithm. At each iteration, a light field index `i` is chosen at random, along with a batch of coordinates, and the corresponding values are predicted, using weights and biases from the representation provider and the synthesis network. The model's parameters `U`, `V` and (the relevant column of) `Sigma` are then updated by gradient backprogagation from a MSE minimization objective.
 
+The code uses TensorFlow 2.7
+
 ## How to use
+
+Requirements: Python 3.7, TensorFlow 2.7
 
 The simplest command
 
@@ -41,20 +45,20 @@ For instance:
 Note that before training, each light field of the dataset is shuffled and cached.
 
 The other parameters that can be provided are:
-- `epochs`
-- `steps_per_epoch`
+- `epochs`: number of training epochs
+- `steps_per_epoch`: number of steps per epoch
 - `batch_size`
-- `hidden_dim`
-- `depth`
-- `rank`
-- `omega_0`
-- `verbose`
-- `lr_cosine_decay_initial_value`
-- `lr_cosine_decay_final_value`
+- `hidden_dim`: dimension of a hidden layer in the synthesis network
+- `depth`: depth of the synthesis network
+- `rank`: rank of the joint representation
+- `omega_0`: factor defined in SIREN
+- `verbose`: either 0, 1 or 2
+- `lr_cosine_decay_initial_value`: initial value for the learning rate
+- `lr_cosine_decay_final_value`: final value for the learning rate
 - `adam_epsilon`
-- `scenes_directory`
-- `cache_directory`
-- `checkpoint_root`
-- `tensorboard_root`
+- `scenes_directory`: directory containing the light fields
+- `cache_directory`: directory where the shuffled dataset will be cached
+- `checkpoint_root`: directory where the models will be saved
+- `tensorboard_root`: logging directory
 
 
