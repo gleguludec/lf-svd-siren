@@ -20,4 +20,21 @@ The algorithm is therefore composed of two parts:
 
 2. The synthesis network which, using the weights and biases, computes the values of the pixels by querying the network on the coordinates of all pixels.
 
-The network is learned using Adam, a flavour of the SGD algorithm.
+The network is learned using Adam, a flavour of the SGD algorithm. At each iteration, a light field index `i` is chosen at random, along with a batch of coordinates, and the corresponding values are predicted, using weights and biases from the representation provider and the synthesis network. The model's parameters `U`, `V` and (the relevant column of) `Sigma` are then updated by gradient backprogagation from a MSE minimization objective.
+
+## How to use
+
+The simplest command
+
+```python train.py```
+
+runs the joint representation learning for the default dataset (located in datasets/Flowers). To use a different dataset, run 
+
+```python train.py --scenes_directory [dataset_directory]```
+
+By default, the dataset directory is assumed to contain 14 x 14 macropixel image representations of light fields of shape (375 x 14) x (540 x 14) x (3 color channels) as PNG files. The light field is then cropped to only retain the 8 x 8 most central views. As an alternative format, it is possible to provide a dataset directory containing one directory per light field, where each light field directory contains the sub-aperture images with naming convention `lf_[u]_[v].png`. In that case, the additional `--subaperture_images` argument must be provided.
+
+For instance:
+
+```python train.py --scenes_directory datasets/StanfordLytro --subaperture_images```
+

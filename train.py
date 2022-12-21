@@ -54,7 +54,7 @@ def get_args():
     for arg_name, default in arg_name_to_default.items():
         parser.add_argument(f'--{arg_name}', type=type(default), default=default)
     for arg_name, const in [
-        ('supaperture_images', ScenesDirectoryMode.SUBAPERTURE_IMAGES),
+        ('subaperture_images', ScenesDirectoryMode.SUBAPERTURE_IMAGES),
         ('macropixel_images', ScenesDirectoryMode.MACROPIXEL_IMAGES)
     ]:
         parser.add_argument(
