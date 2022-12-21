@@ -12,7 +12,7 @@ For each layer, a base of matrices is learned that serve as a representation sha
 The matrices formed by taking the linear combinations of the base matrices with the coefficients corresponding to a given scene serve as the weight matrices of a SIREN network.
 In additional to the set of coefficients, we also learn an individual bias vector for each scene.
 
-More precisely, the code uses matrix factorization inspired from the Singluar Value Decomposition (SVD). For a layer with input size `fan_in` and output size `fan_out`, the algorithm learns a matrix `U` of size `fan_in * rank`, a matrix `V` of size `rank * fan_out`, and a matrix `Sigma` of size `number_of_scenes * rank`, where `rank` denotes the dimension of the matrix space. Then the weight matrix for this layer corresponding to the scene `i` is given by: `U @ diag(Sigma) @ V` where `@` is matrix multiplication. In addition, for each layer and each scene, an individual bias vector is learned.
+More precisely, the code uses matrix factorization inspired from the Singluar Value Decomposition (SVD). For a layer with input size `fan_in` and output size `fan_out`, the algorithm learns a matrix `U` of size `fan_in * rank`, a matrix `V` of size `rank * fan_out`, and a matrix `Sigma` of size `number_of_scenes * rank`, where `rank` denotes the dimension of the matrix space, and be adjusted as hyper-parameter to trade representation size with distortion. Then the weight matrix for this layer corresponding to the scene `i` is given by: `U @ diag(Sigma) @ V` where `@` is matrix multiplication. In addition, for each layer and each scene, an individual bias vector is learned.
 
 The algorithm is therefore composed of two parts:
 
@@ -37,4 +37,24 @@ By default, the dataset directory is assumed to contain 14 x 14 macropixel image
 For instance:
 
 ```python train.py --scenes_directory datasets/StanfordLytro --subaperture_images```
+
+Note that before training, each light field of the dataset is shuffled and cached.
+
+The other parameters that can be provided are:
+- `epochs`
+- `steps_per_epoch`
+- `batch_size`
+- `hidden_dim`
+- `depth`
+- `rank`
+- `omega_0`
+- `verbose`
+- `lr_cosine_decay_initial_value`
+- `lr_cosine_decay_final_value`
+- `adam_epsilon`
+- `scenes_directory`
+- `cache_directory`
+- `checkpoint_root`
+- `tensorboard_root`
+
 
