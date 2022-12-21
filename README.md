@@ -36,7 +36,10 @@ runs the joint representation learning for the default dataset (located in datas
 
 ```python train.py --scenes_directory [dataset_directory]```
 
-The `datasets` folder already contains a mock version of the `Flowers` dataset (Srinivasan et al. [2018](https://arxiv.org/abs/1708.03292)) and of the `Stanford Lytro` dataset ((http://lightfields.stanford.edu/LF2016.html)).
+The `datasets` folder already contains a mock version of the 'Flowers' dataset (Srinivasan et al. [2018](https://arxiv.org/abs/1708.03292)) and of the [Stanford Lytro](http://lightfields.stanford.edu/LF2016.html) dataset.
+
+To reproduce the experiments, please download the full version of these datasets.
+
 By default, the dataset directory is assumed to contain 14 x 14 macropixel image representations of light fields of shape (375 x 14) x (540 x 14) x (3 color channels) as PNG files. The light field is then cropped to only retain the 8 x 8 most central views. As an alternative format, it is possible to provide a dataset directory containing one directory per light field, where each light field directory contains the sub-aperture images with naming convention `lf_[u]_[v].png`. In that case, the additional `--subaperture_images` argument must be provided.
 
 For instance:
@@ -61,5 +64,6 @@ The other parameters that can be provided are:
 - `cache_directory`: directory where the shuffled dataset will be cached
 - `checkpoint_root`: directory where the models will be saved
 - `tensorboard_root`: logging directory
+- `limit_number_of_scenes`: use only the first N scenes instead of the whole dataset.
 
 
