@@ -49,7 +49,8 @@ def get_args():
         'scenes_directory': "datasets/Flowers",
         'cache_directory': "cache",
         'checkpoint_root': "models",
-        'tensorboard_root': "tb"
+        'tensorboard_root': "tb",
+        'checkpoint_file_format': "{epoch:02d}.ckpt"
     }
     for arg_name, default in arg_name_to_default.items():
         parser.add_argument(f'--{arg_name}', type=type(default), default=default)
@@ -66,7 +67,7 @@ def get_args():
 
 def train(args):
     checkpoint_directory = get_checkpoint_directory(args)
-    checkpoint_path = checkpoint_directory + "{epoch:02d}.ckpt"
+    checkpoint_path = checkpoint_directory + args.checkpoint_file_format
     tensorboard_path = os.path.expandvars(
         f"{args.tensorboard_root}/"
         f"{Path(checkpoint_directory).parent.name}/"
@@ -166,32 +167,7 @@ def display(args):
         print((f"{k}:" + 64 * ' ')[:32] + f"{v}")
     print(128 * '*' + '\n')
 
-def test():
-    # Model can be built.
-    model = ModelFactory.make(3, 9, 512, 2048, 2000, tf.constant([375, 540, 8, 8]), 30.)
-    model.summary()
-
-    # Model can be called and produces finite values.
-    scene_id = tf.constant([0])
-    mock_coordinates = tf.random.uniform([4096, 4])
-    mock_values = tf.random.uniform([4096, 3])
-    predicted = model([scene_id, mock_coordinates])
-    tf.debugging.assert_all_finite(predicted, 'Predicted values are not finite')
-
-    # Model can be trained.
-    model.compile('Adam', tf.keras.losses.mean_squared_error)
-    mock_dataset = tf.data.Dataset.zip((
-        tf.data.Dataset.from_tensor_slices(mock_coordinates),
-        tf.data.Dataset.from_tensor_slices(mock_values))
-    ).batch(4096).map(lambda c, v: ((scene_id, c), v))
-    model.fit(mock_dataset, epochs=1, verbose=0)
-
-TESTING = False
-
 if __name__ == "__main__":
-    if TESTING:
-        test()
-    else:
-        args = get_args()
-        display(args)
-        train(args)
+    args = get_args()
+    display(args)
+    train(args)
