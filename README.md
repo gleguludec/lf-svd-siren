@@ -24,7 +24,7 @@ The network is learned using Adam, a flavour of the SGD algorithm. At each itera
 
 The code uses TensorFlow 2.7
 
-The architecture is illustrated in ![](SVD-SIREN-pipeline.png)
+The architecture is illustrated in the following diagram: ![](SVD-SIREN-pipeline.png)
 
 ## How to use
 
@@ -67,5 +67,6 @@ The other parameters that can be provided are:
 - `checkpoint_root`: directory where the models will be saved
 - `tensorboard_root`: logging directory
 - `limit_number_of_scenes`: use only the first N scenes instead of the whole dataset.
+- `checkpoint_file_format`: is equal to  `{epoch:02d}.ckpt` by default, meaning a model is saved at each epoch. To save only one model, use e.g. `--checkpoint_file_format 00.ckpt`
 
 
