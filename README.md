@@ -1,6 +1,6 @@
 # SVD SIREN / Joint Neural Representation for Multiple Light Fields
 
-This code describes and allows for the execution of the algorithm described in the paper "Joint Neural Representation for Multiple Light Fields" by Le Guludec & Guillemot (ICASSP 2023).
+This code describes and allows for the execution of the algorithm described in the paper "Joint Neural Representation for Multiple Light Fields" by Le Guludec & Guillemot ([ICASSP 2023](https://doi.org/10.1109/ICASSP49357.2023.10096092)). Free access to the paper [here](https://hal.science/hal-04054325)
 It it designed to learn a joint implicit neural representation of a collection of light fields.
 
 Implicit neural representations are neural networks that represent a signal as a mapping from the space of coordinates to the space of values. For traditional images, it is a mapping from a 2D space to a 3D space. In the case of light field, it is a mapping from a 4D to a 3D space.
